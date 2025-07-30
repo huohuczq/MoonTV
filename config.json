@@ -88,9 +88,9 @@
   },
   "custom_category": [
     {
-      "name": "华语",
-      "type": "movie",
-      "query": "华语"
+      "name": "动漫",
+      "type": "movie","tv",
+      "query": "国产动漫"
     }
   ] 
 }
