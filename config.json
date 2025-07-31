@@ -21,18 +21,18 @@
     },
     "tyyszy": {
       "api": "https://tyyszy.com/api.php/provide/vod",
-      "name": "天涯资源"
+      "名称": "天涯资源"
     },
     "ffzy": {
       "api": "http://ffzy5.tv/api.php/provide/vod",
-      "name": "非凡影视",
-      "detail": "http://ffzy5.tv"
+      "名称": "非凡影视",
+      "详情": "http://ffzy5.tv"
     },
     "zy360": {
       "api": "https://360zy.com/api.php/provide/vod",
-      "name": "360资源"
+      "名称": "360资源"
     },
-    "maotaizy": {
+    "毛塔伊兹": {
       "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
       "name": "茅台资源"
     },
@@ -47,50 +47,50 @@
     },
     "dbzy": {
       "api": "https://dbzy.tv/api.php/provide/vod",
-      "name": "豆瓣资源"
+      "名称": "豆瓣资源"
     },
-    "mozhua": {
+    "摩莎": {
       "api": "https://mozhuazy.com/api.php/provide/vod",
-      "name": "魔爪资源"
+      "名称": "魔爪资源"
     },
     "mdzy": {
       "api": "https://www.mdzyapi.com/api.php/provide/vod",
-      "name": "魔都资源"
+      "名称": "魔都资源"
     },
-    "zuid": {
+    "南": {
       "api": "https://api.zuidapi.com/api.php/provide/vod",
-      "name": "最大资源"
+      "名称": "最大资源"
     },
-    "yinghua": {
+    "英华": {
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-      "name": "樱花资源"
+      "名称": "樱花资源"
     },
-    "wujin": {
+    "武金": {
       "api": "https://api.wujinapi.me/api.php/provide/vod",
-      "name": "无尽资源"
+      "名称": "无尽资源"
     },
     "wwzy": {
       "api": "https://wwzy.tv/api.php/provide/vod",
-      "name": "旺旺短剧"
+      "名称": “旺旺短剧”
     },
     "ikun": {
       "api": "https://ikunzyapi.com/api.php/provide/vod",
-      "name": "iKun资源"
+      "名称": "iKun资源"
     },
     "lzi": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源站"
+      "名称": "量子资源站"
     },
-    "xiaomaomi": {
+    "小米米"：{
       "api": "https://zy.xmm.hk/api.php/provide/vod",
-      "name": "小猫咪资源"
+      "名称"："小猫咪资源"
     }
   },
-  "custom_category": [
+  "自定义类别": [
     {
-      "name": "动漫",
-      "type": "movie","tv",
-      "query": "国产动漫"
+      "名字": “动漫”,
+      "类型": "电视",
+      “查询”："国产动漫"
     }
-  ] 
+  输入：] 
 }
