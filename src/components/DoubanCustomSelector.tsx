@@ -40,10 +40,19 @@ const DoubanCustomSelector: React.FC<DoubanCustomSelectorProps> = ({
     width: number;
   }>({ left: 0, width: 0 });
 
-  // 根据 customCategories 生成一级选择器选项（按 type 分组）
+  // 二级选择器滚动容器的ref
+  const secondaryScrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // 根据 customCategories 生成一级选择器选项（按 type 分组，电影优先）
   const primaryOptions = React.useMemo(() => {
     const types = Array.from(new Set(customCategories.map((cat) => cat.type)));
-    return types.map((type) => ({
+    // 确保电影类型排在前面
+    const sortedTypes = types.sort((a, b) => {
+      if (a === 'movie' && b !== 'movie') return -1;
+      if (a !== 'movie' && b === 'movie') return 1;
+      return 0;
+    });
+    return sortedTypes.map((type) => ({
       label: type === 'movie' ? '电影' : '剧集',
       value: type,
     }));
@@ -59,6 +68,59 @@ const DoubanCustomSelector: React.FC<DoubanCustomSelectorProps> = ({
         value: cat.query,
       }));
   }, [customCategories, primarySelection]);
+
+  // 处理二级选择器的鼠标滚轮事件（原生 DOM 事件）
+  const handleSecondaryWheel = React.useCallback((e: WheelEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const container = secondaryScrollContainerRef.current;
+    if (container) {
+      const scrollAmount = e.deltaY * 2;
+      container.scrollLeft += scrollAmount;
+    }
+  }, []);
+
+  // 添加二级选择器的鼠标滚轮事件监听器
+  useEffect(() => {
+    const scrollContainer = secondaryScrollContainerRef.current;
+    const capsuleContainer = secondaryContainerRef.current;
+
+    if (scrollContainer && capsuleContainer) {
+      // 同时监听滚动容器和胶囊容器的滚轮事件
+      scrollContainer.addEventListener('wheel', handleSecondaryWheel, {
+        passive: false,
+      });
+      capsuleContainer.addEventListener('wheel', handleSecondaryWheel, {
+        passive: false,
+      });
+
+      return () => {
+        scrollContainer.removeEventListener('wheel', handleSecondaryWheel);
+        capsuleContainer.removeEventListener('wheel', handleSecondaryWheel);
+      };
+    }
+  }, [handleSecondaryWheel]);
+
+  // 当二级选项变化时重新添加事件监听器
+  useEffect(() => {
+    const scrollContainer = secondaryScrollContainerRef.current;
+    const capsuleContainer = secondaryContainerRef.current;
+
+    if (scrollContainer && capsuleContainer && secondaryOptions.length > 0) {
+      // 重新添加事件监听器
+      scrollContainer.addEventListener('wheel', handleSecondaryWheel, {
+        passive: false,
+      });
+      capsuleContainer.addEventListener('wheel', handleSecondaryWheel, {
+        passive: false,
+      });
+
+      return () => {
+        scrollContainer.removeEventListener('wheel', handleSecondaryWheel);
+        capsuleContainer.removeEventListener('wheel', handleSecondaryWheel);
+      };
+    }
+  }, [handleSecondaryWheel, secondaryOptions]);
 
   // 更新指示器位置的通用函数
   const updateIndicatorPosition = (
@@ -238,7 +300,7 @@ const DoubanCustomSelector: React.FC<DoubanCustomSelectorProps> = ({
             <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
               片单
             </span>
-            <div className='overflow-x-auto'>
+            <div ref={secondaryScrollContainerRef} className='overflow-x-auto'>
               {renderCapsuleSelector(
                 secondaryOptions,
                 secondarySelection || secondaryOptions[0]?.value,
